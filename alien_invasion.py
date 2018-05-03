@@ -1,24 +1,32 @@
-
-import sys
-
 import pygame
 
+from pygame.locals import *
+from settings import Settings
+from ship import Ship
+import game_functions as gf
+
+
 def run_game():
-    #初始化遊戲並創建一個屏幕對象
+    #初始化pygame,設置和屏幕對象
     pygame.init()
-    screen = pygame.display.set_mode((1200,800))
+    ai_settings = Settings()
+    screen = pygame.display.set_mode((ai_settings.screen_width,ai_settings.screen_height))
     pygame.display.set_caption('Alien Invasion')
+
+    #創建一艏飛船
+    ship = Ship(screen)
+
 
     #開始遊戲的主循環
     while True:
+        gf.check_events()
+        gf.update_screen(ai_settings,screen,ship)
 
-        #監視鍵盤和鼠標事件
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit()
 
-    #讓最近繪制的屏幕可見
-        pygame.display.flip()
+
+
+
+
 
 run_game()
 
